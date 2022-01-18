@@ -1,10 +1,8 @@
-# trustyai-python
-
 Python bindings to [TrustyAI](https://kogito.kie.org/trustyai/)'s explainability library.
 
-## Setup
+# Setup
 
-### PyPi
+## PyPi
 
 Install from PyPi with
 
@@ -12,7 +10,7 @@ Install from PyPi with
 pip install trustyai
 ```
 
-### Local
+## Local
 
 The minimum dependencies can be installed with
 
@@ -26,7 +24,7 @@ If running the examples or developing, also install the development dependencies
 pip install -r requirements-dev.txt
 ```
 
-### Docker
+## Docker
 
 Alternatively create a container image and run it using
 
@@ -37,13 +35,13 @@ $ docker run --rm -it -p 8888:8888 ruivieira/python-trustyai:latest
 
 The Jupyter server will be available at `localhost:8888`.
 
-### Binder
+## Binder
 
 You can also run the example Jupyter notebooks using `mybinder.org`:
 
 - https://mybinder.org/v2/gh/trustyai-python/examples/main
 
-## Getting started
+# Getting started
 
 To initialise, import the module and initialise it.
 For instance,
@@ -67,7 +65,7 @@ be stored locally under `./dep`.
 
 This needs to be the very first call, before any other call to TrustyAI methods. After this, we can call all other methods, as shown in the examples.
 
-### Writing your model in Python
+## Writing your model in Python
 
 To code a model in Python you need to write it a function with takes a Python list of `PredictionInput` and
 returns a (Python) list of `PredictionOutput`. 
@@ -93,7 +91,7 @@ prediction = model.predictAsync(inputs).get()
 
 You can see the `sumSkipModel` in the [LIME tests](https://github.com/trustyai-python/module/blob/main/tests/test_limeexplainer.py).
 
-## Examples
+# Examples
 
 You can look at the [tests](https://github.com/trustyai-python/module/tree/main/tests) for working examples.
 
