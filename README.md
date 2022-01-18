@@ -1,37 +1,100 @@
-## Welcome to GitHub Pages
+# trustyai-python
 
-You can use the [editor on GitHub](https://github.com/trustyai-python/trustyai-python.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+Python bindings to [TrustyAI](https://kogito.kie.org/trustyai/)'s explainability library.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Setup
 
-### Markdown
+### PyPi
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Install from PyPi with
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```shell
+pip install trustyai
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+### Local
 
-### Jekyll Themes
+The minimum dependencies can be installed with
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/trustyai-python/trustyai-python.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+```shell
+pip install -r requirements.txt
+```
 
-### Support or Contact
+If running the examples or developing, also install the development dependencies:
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+```shell
+pip install -r requirements-dev.txt
+```
+
+### Docker
+
+Alternatively create a container image and run it using
+
+```shell
+$ docker build -f Dockerfile -t ruivieira/python-trustyai:latest .
+$ docker run --rm -it -p 8888:8888 ruivieira/python-trustyai:latest
+```
+
+The Jupyter server will be available at `localhost:8888`.
+
+### Binder
+
+You can also run the example Jupyter notebooks using `mybinder.org`:
+
+- https://mybinder.org/v2/gh/trustyai-python/examples/main
+
+## Getting started
+
+To initialise, import the module and initialise it.
+For instance,
+
+```python
+import trustyai
+
+trustyai.init()
+```
+
+If the dependencies are not in the default `dep` sub-directory, or
+you want to use a custom classpath you can specify it with:
+```python
+import trustyai
+
+trustyai.init(path="/foo/bar/explainability-core-2.0.0-SNAPSHOT.jar")
+```
+
+In order to get all the project's dependencies, the script `deps.sh` can be run and dependencies will
+be stored locally under `./dep`.
+
+This needs to be the very first call, before any other call to TrustyAI methods. After this, we can call all other methods, as shown in the examples.
+
+### Writing your model in Python
+
+To code a model in Python you need to write it a function with takes a Python list of `PredictionInput` and
+returns a (Python) list of `PredictionOutput`. 
+
+This function will then be passed as an argument to the Python `PredictionProvider`
+which will take care of wrapping it in a Java `CompletableFuture` for you.
+For instance,
+
+```python
+from trustyai.model import PredictionProvider
+
+def myModelFunction(inputs):
+    # do something with the inputs
+    output = [predictionOutput1, predictionOutput2]
+    return output
+
+model = PredictionProvider(myModelFunction)
+
+inputs = [predictionInput1, predictionInput2]
+
+prediction = model.predictAsync(inputs).get()
+```
+
+You can see the `sumSkipModel` in the [LIME tests](https://github.com/trustyai-python/module/blob/main/tests/test_limeexplainer.py).
+
+## Examples
+
+You can look at the [tests](https://github.com/trustyai-python/module/tree/main/tests) for working examples.
+
+There are also [Jupyter notebooks available](https://github.com/trustyai-python/examples).
