@@ -49,14 +49,6 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#pypi">PyPi</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#local">Local</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#docker">Docker</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#binder">Binder</a>
-    </li>
     </ul>
                     </li>
                 </ul>
@@ -93,31 +85,32 @@
           <div role="main">
             <div class="section">
               
-                <p>Python bindings to <a href="https://kogito.kie.org/trustyai/">TrustyAI</a>'s explainability library.</p>
-<h1 id="setup">Setup</h1>
-<h2 id="pypi">PyPi</h2>
+                <h2 id="introduction">Introduction</h2>
+<p>Python bindings to <a href="https://kogito.kie.org/trustyai/">TrustyAI</a>'s explainability library.</p>
+<h2 id="setup">Setup</h2>
+<h3 id="pypi">PyPi</h3>
 <p>Install from PyPi with</p>
 <pre><code class="language-shell">pip install trustyai
 </code></pre>
-<h2 id="local">Local</h2>
+<h3 id="local">Local</h3>
 <p>The minimum dependencies can be installed with</p>
 <pre><code class="language-shell">pip install -r requirements.txt
 </code></pre>
 <p>If running the examples or developing, also install the development dependencies:</p>
 <pre><code class="language-shell">pip install -r requirements-dev.txt
 </code></pre>
-<h2 id="docker">Docker</h2>
+<h3 id="docker">Docker</h3>
 <p>Alternatively create a container image and run it using</p>
 <pre><code class="language-shell">$ docker build -f Dockerfile -t ruivieira/python-trustyai:latest .
 $ docker run --rm -it -p 8888:8888 ruivieira/python-trustyai:latest
 </code></pre>
 <p>The Jupyter server will be available at <code>localhost:8888</code>.</p>
-<h2 id="binder">Binder</h2>
+<h3 id="binder">Binder</h3>
 <p>You can also run the example Jupyter notebooks using <code>mybinder.org</code>:</p>
 <ul>
 <li>https://mybinder.org/v2/gh/trustyai-python/examples/main</li>
 </ul>
-<h1 id="getting-started">Getting started</h1>
+<h2 id="getting-started">Getting started</h2>
 <p>To initialise, import the module and initialise it.
 For instance,</p>
 <pre><code class="language-python">import trustyai
@@ -153,7 +146,7 @@ inputs = [predictionInput1, predictionInput2]
 prediction = model.predictAsync(inputs).get()
 </code></pre>
 <p>You can see the <code>sumSkipModel</code> in the <a href="https://github.com/trustyai-python/module/blob/main/tests/test_limeexplainer.py">LIME tests</a>.</p>
-<h1 id="examples">Examples</h1>
+<h2 id="examples">Examples</h2>
 <p>You can look at the <a href="https://github.com/trustyai-python/module/tree/main/tests">tests</a> for working examples.</p>
 <p>There are also <a href="https://github.com/trustyai-python/examples">Jupyter notebooks available</a>.</p>
               
@@ -201,5 +194,5 @@ prediction = model.predictAsync(inputs).get()
 
 <!--
 MkDocs version : 1.2.3
-Build Date UTC : 2022-01-24 21:25:01.545896+00:00
+Build Date UTC : 2022-01-24 21:32:13.616898+00:00
 -->
