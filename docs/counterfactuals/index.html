@@ -1,0 +1,1275 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+    
+    
+      
+        <title>Counterfactuals - TrustyAI-Python</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6e60f8b8.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#02a6f2">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Overpass:300,400,400i,700%7CJetBrains+Mono&display=fallback">
+        <style>:root{--md-text-font:"Overpass";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="light-blue" data-md-color-accent="orange">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#counterfactual-explanations" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="TrustyAI-Python" class="md-header__button md-logo" aria-label="TrustyAI-Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TrustyAI-Python
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Counterfactuals
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="TrustyAI-Python" class="md-nav__button md-logo" aria-label="TrustyAI-Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    TrustyAI-Python
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Counterfactuals
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Counterfactuals
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-example" class="md-nav__link">
+    Simple example
+  </a>
+  
+    <nav class="md-nav" aria-label="Simple example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constrained-features" class="md-nav__link">
+    Constrained features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-python-models" class="md-nav__link">
+    Using Python models
+  </a>
+  
+    <nav class="md-nav" aria-label="Using Python models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unconstraind-basic-search" class="md-nav__link">
+    Unconstraind basic search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constrained-search" class="md-nav__link">
+    Constrained search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimum-counterfactual-probabilities" class="md-nav__link">
+    Minimum counterfactual probabilities
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualisation" class="md-nav__link">
+    Visualisation
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#simple-example" class="md-nav__link">
+    Simple example
+  </a>
+  
+    <nav class="md-nav" aria-label="Simple example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#constrained-features" class="md-nav__link">
+    Constrained features
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-python-models" class="md-nav__link">
+    Using Python models
+  </a>
+  
+    <nav class="md-nav" aria-label="Using Python models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unconstraind-basic-search" class="md-nav__link">
+    Unconstraind basic search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constrained-search" class="md-nav__link">
+    Constrained search
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimum-counterfactual-probabilities" class="md-nav__link">
+    Minimum counterfactual probabilities
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visualisation" class="md-nav__link">
+    Visualisation
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+<h1 id="counterfactual-explanations">Counterfactual explanations</h1>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span> <span class="nn">trustyai</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">os</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">pwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">trustyai</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="n">pwd</span> <span class="o">+</span> <span class="s2">&quot;/../dep/org/kie/kogito/explainability-core/1.16.0.Final/*&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="n">pwd</span> <span class="o">+</span> <span class="s2">&quot;/../dep/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="n">pwd</span> <span class="o">+</span> <span class="s2">&quot;/../dep/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="n">pwd</span> <span class="o">+</span> <span class="s2">&quot;/../dep/org/optaplanner/optaplanner-core/8.16.0.Final/*&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="n">pwd</span> <span class="o">+</span> <span class="s2">&quot;/../dep/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="n">pwd</span> <span class="o">+</span> <span class="s2">&quot;/../dep/org/kie/kie-api/8.16.0.Beta/*&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="n">pwd</span> <span class="o">+</span> <span class="s2">&quot;/../dep/io/micrometer/micrometer-core/1.8.1/*&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="p">]</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">)</span>
+</code></pre></div>
+<h2 id="simple-example">Simple example</h2>
+<p>We start by defining our black-box model, typically represented by</p>
+<div class="arithmatex">\[
+f(\mathbf{x}) = \mathbf{y}
+\]</div>
+<p>Where <span class="arithmatex">\(\mathbf{x}=\{x_1, x_2, \dots,x_m\}\)</span> and <span class="arithmatex">\(\mathbf{y}=\{y_1, y_2, \dots,y_n\}\)</span>.</p>
+<p>Our example toy model, in this case, takes an all-numerical input <span class="arithmatex">\(\mathbf{x}\)</span> and return a <span class="arithmatex">\(\mathbf{y}\)</span> of either <code>true</code> or <code>false</code> if the sum of the <span class="arithmatex">\(\mathbf{x}\)</span> components is within a threshold <span class="arithmatex">\(\epsilon\)</span> of a point <span class="arithmatex">\(\mathbf{C}\)</span>, that is:</p>
+<div class="arithmatex">\[
+f(\mathbf{x}, \epsilon, \mathbf{C})=\begin{cases}
+\text{true},\qquad \text{if}\ \mathbf{C}-\epsilon&lt;\sum_{i=1}^m x_i &lt;\mathbf{C}+\epsilon \\
+\text{false},\qquad \text{otherwise}
+\end{cases}
+\]</div>
+<p>This model is provided in the <code>TestUtils</code> module. We instantiate with a <span class="arithmatex">\(\mathbf{C}=500\)</span> and <span class="arithmatex">\(\epsilon=1.0\)</span>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">trustyai.utils</span> <span class="kn">import</span> <span class="n">TestUtils</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">center</span> <span class="o">=</span> <span class="mf">500.0</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1.0</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">model</span> <span class="o">=</span> <span class="n">TestUtils</span><span class="o">.</span><span class="n">getSumThresholdModel</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+</code></pre></div>
+<p>Next we need to define a <strong>goal</strong>.
+If our model is <span class="arithmatex">\(f(\mathbf{x'})=\mathbf{y'}\)</span> we are then defining our <span class="arithmatex">\(\mathbf{y'}\)</span> and the counterfactual result will be the <span class="arithmatex">\(\mathbf{x'}\)</span> which satisfies <span class="arithmatex">\(f(\mathbf{x'})=\mathbf{y'}\)</span>.</p>
+<p>We will define our goal as <code>true</code>, that is, the sum is withing the vicinity of a (to be defined) point <span class="arithmatex">\(\mathbf{C}\)</span>. The goal is a list of <code>Output</code> which take the following parameters</p>
+<ul>
+<li>The feature name</li>
+<li>The feature type</li>
+<li>The feature value (wrapped in <code>Value</code>)</li>
+<li>A confidence threshold, which we will leave at zero (no threshold)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">trustyai.model</span> <span class="kn">import</span> <span class="n">output</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">goal</span> <span class="o">=</span> <span class="p">[</span><span class="n">output</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;inside&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+</code></pre></div>
+<p>We will now define our initial features, <span class="arithmatex">\(\mathbf{x}\)</span>. Each feature can be instantiated by using <code>FeatureFactory</code> and in this case we want to use numerical features, so we'll use <code>FeatureFactory.newNumericalFeature</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span> <span class="nn">random</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span> <span class="nn">trustyai.model</span> <span class="kn">import</span> <span class="n">feature</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">features</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">feature</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;x</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">]</span>
+</code></pre></div>
+<p>As we can see, the sum of of the features will not be within <span class="arithmatex">\(\epsilon\)</span> (1.0) of <span class="arithmatex">\(\mathbf{C}\)</span> (500.0). As such the model prediction will be <code>false</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">feature_sum</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">features</span><span class="p">:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">value</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_number</span><span class="p">()</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feature </span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> has value </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">feature_sum</span> <span class="o">+=</span> <span class="n">value</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Features sum is </span><span class="si">{</span><span class="n">feature_sum</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Feature x1 has value 2.502467051769819
+Feature x2 has value 5.398946159346857
+Feature x3 has value 9.1657509019274
+Feature x4 has value 9.073621307091113
+
+Features sum is 26.140785420135188
+</code></pre></div>
+<p>The next step is to specify the <strong>constraints</strong> of the features, i.e. which features can be changed and which should be fixed. Since we want all features to be able to change, we specify <code>False</code> for all of them:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
+</code></pre></div>
+<p>Finally, we also specify which are the <strong>bounds</strong> for the counterfactual search. Typically this can be set either using domain-specific knowledge or taken from the data. In this case we simply specify an arbitrary (sensible) value, e.g. all the features can vary between <code>0</code> and <code>1000</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">feature_boundaries</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">4</span>
+</code></pre></div>
+<p>We can now instantiate the <strong>explainer</strong> itself.</p>
+<p>To do so, we will to configure the termination criteria. For this example we will specify that the counterfactual search should only execute a maximum of 10,000 iterations before stopping and returning whatever the best result is so far.</p>
+<p>We can can now instantiate the explainer itself using <code>CounterfactualExplainer</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">trustyai.explainers</span> <span class="kn">import</span> <span class="n">CounterfactualExplainer</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">explainer</span> <span class="o">=</span> <span class="n">CounterfactualExplainer</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="mi">10_000</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>SLF4J: Failed to load class &quot;org.slf4j.impl.StaticLoggerBinder&quot;.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+</code></pre></div>
+<p>We will now express the counterfactual problem as defined above.</p>
+<ul>
+<li><code>input</code> represents our <span class="arithmatex">\(\mathbf{x}\)</span> which know gives a prediction of <code>False</code></li>
+<li><code>outputs</code> represents our <span class="arithmatex">\(\mathbf{y'}\)</span>, that is our desired prediction (<code>True</code>)</li>
+<li><code>domain</code> repreents the boundaries for the counterfactual search</li>
+</ul>
+<p>We wrap these quantities in a <code>CounterfactualPrediction</code> (the UUID is simply to label the search instance):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span> <span class="nn">uuid</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span> <span class="nn">trustyai.local.counterfactual</span> <span class="kn">import</span> <span class="n">counterfactual_prediction</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">prediction</span> <span class="o">=</span> <span class="n">counterfactual_prediction</span><span class="p">(</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">input_features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">outputs</span><span class="o">=</span><span class="n">goal</span><span class="p">,</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">domains</span><span class="o">=</span><span class="n">feature_boundaries</span><span class="p">)</span>
+</code></pre></div>
+<p>We now request the counterfactual <span class="arithmatex">\(\mathbf{x'}\)</span> which is closest to <span class="arithmatex">\(\mathbf{x}\)</span> and which satisfies <span class="arithmatex">\(f(\mathbf{x'}, \epsilon, \mathbf{C})=\mathbf{y'}\)</span>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">explanation</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</code></pre></div>
+<p>We can see that the counterfactual <span class="arithmatex">\(\mathbf{x'}\)</span></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">feature_sum</span> <span class="o">=</span> <span class="mf">0.0</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">explanation</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="n">feature_sum</span> <span class="o">+=</span> <span class="n">entity</span><span class="o">.</span><span class="n">getProposedValue</span><span class="p">()</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Feature sum is </span><span class="si">{</span><span class="n">feature_sum</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>java.lang.DoubleEntity{value=476.23232252502146, rangeMinimum=0.0, rangeMaximum=1000.0, id=&#39;x1&#39;}
+java.lang.DoubleEntity{value=5.398946159346857, rangeMinimum=0.0, rangeMaximum=1000.0, id=&#39;x2&#39;}
+java.lang.DoubleEntity{value=9.291426877845232, rangeMinimum=0.0, rangeMaximum=1000.0, id=&#39;x3&#39;}
+java.lang.DoubleEntity{value=9.073621307091113, rangeMinimum=0.0, rangeMaximum=1000.0, id=&#39;x4&#39;}
+
+Feature sum is 499.9963168693047
+</code></pre></div>
+<h3 id="constrained-features">Constrained features</h3>
+<p>As we've seen, it is possible to constraint a specific feature <span class="arithmatex">\(x_i\)</span> by setting the <em>constraints</em> list corresponding element to <code>True</code>.</p>
+<p>In this example, we know want to fix <span class="arithmatex">\(x_1\)</span> and <span class="arithmatex">\(x_4\)</span>. That is, these features should have the same value in the counterfactual <span class="arithmatex">\(\mathbf{x'}\)</span> as in the original <span class="arithmatex">\(\mathbf{x}\)</span>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">]</span>  <span class="c1"># x1, x2, x3 and x4</span>
+</code></pre></div>
+<p>We simply need to wrap the previous quantities with the new constraints:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">prediction</span> <span class="o">=</span> <span class="n">counterfactual_prediction</span><span class="p">(</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">input_features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> 
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="n">outputs</span><span class="o">=</span><span class="n">goal</span><span class="p">,</span> 
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">domains</span><span class="o">=</span><span class="n">feature_boundaries</span><span class="p">,</span> 
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">)</span>
+</code></pre></div>
+<p>And request a new counterfactual explanation</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">explanation</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</code></pre></div>
+<p>We can see that <span class="arithmatex">\(x_1\)</span> and <span class="arithmatex">\(x_4\)</span> has the same value as the original and the model satisfies the conditions.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original x1: </span><span class="si">{</span><span class="n">features</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_number</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original x4: </span><span class="si">{</span><span class="n">features</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_number</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="k">for</span> <span class="n">entity</span> <span class="ow">in</span> <span class="n">explanation</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Original x1: 2.502467051769819
+Original x4: 9.073621307091113
+
+java.lang.DoubleEntity{value=2.502467051769819, rangeMinimum=2.502467051769819, rangeMaximum=2.502467051769819, id=&#39;x1&#39;}
+java.lang.DoubleEntity{value=5.398946159346857, rangeMinimum=0.0, rangeMaximum=1000.0, id=&#39;x2&#39;}
+java.lang.DoubleEntity{value=482.7102364844587, rangeMinimum=0.0, rangeMaximum=1000.0, id=&#39;x3&#39;}
+java.lang.DoubleEntity{value=9.073621307091113, rangeMinimum=9.073621307091113, rangeMaximum=9.073621307091113, id=&#39;x4&#39;}
+</code></pre></div>
+<h2 id="using-python-models">Using Python models</h2>
+<p>We will now show how to use a custom Python model with TrustyAI counterfactual explanations.</p>
+<p>The model will be an <a href="https://github.com/dmlc/xgboost">XGBoost</a> one trained with the <code>credit-bias</code> dataset (available <a href="https://github.com/ruivieira/benchmark-models/tree/main/credit-bias">here</a>).</p>
+<p>For convenience, the model is pre-trained and serialised with <code>joblib</code> so that for this example we simply need to deserialised it.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">import</span> <span class="nn">joblib</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">xg_model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;models/credit-bias-xgboost.joblib&quot;</span><span class="p">)</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">xg_model</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>XGBClassifier(base_score=0.5, booster=&#39;gbtree&#39;, colsample_bylevel=1,
+              colsample_bynode=1, colsample_bytree=1, gamma=0, gpu_id=-1,
+              importance_type=&#39;gain&#39;, interaction_constraints=&#39;&#39;,
+              learning_rate=0.07, max_delta_step=0, max_depth=8,
+              min_child_weight=1, missing=nan, monotone_constraints=&#39;()&#39;,
+              n_estimators=200, n_jobs=12, num_parallel_tree=1, random_state=27,
+              reg_alpha=0, reg_lambda=1, scale_pos_weight=0.9861206227457426,
+              seed=27, subsample=1, tree_method=&#39;exact&#39;, validate_parameters=1,
+              verbosity=None)
+</code></pre></div>
+<p>This model has as a single <strong>output</strong> a boolean <code>PaidLoan</code>, which will predict whether a certain loan applicant will repay the loan in time or not. The model is slightly more complex than the previous examples, with <strong>input</strong> features:</p>
+<table>
+<thead>
+<tr>
+<th>Input feature</th>
+<th>Type</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NewCreditCustomer</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Amount</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Interest</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>LoanDuration</code></td>
+<td>numerical</td>
+<td>In months</td>
+</tr>
+<tr>
+<td><code>Education</code></td>
+<td>numerical</td>
+<td>Level (1, 2, 3..)</td>
+</tr>
+<tr>
+<td><code>NrOfDependants</code></td>
+<td>numerical</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td><code>EmploymentDurationCurrentEmployer</code></td>
+<td>numerical</td>
+<td>Integer (years)</td>
+</tr>
+<tr>
+<td><code>IncomeFromPrincipalEmployer</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>IncomeFromPension</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>IncomeFromFamilyAllowance</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>IncomeFromSocialWelfare</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>IncomeFromLeavePay</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>IncomeFromChildSupport</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>IncomeOther</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>ExistingLiabilities</code></td>
+<td>numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><code>RefinanceLiabilities</code></td>
+<td>numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><code>DebtToIncome</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>FreeCash</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>CreditScoreEeMini</code></td>
+<td>numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><code>NoOfPreviousLoansBeforeLoan</code></td>
+<td>numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><code>AmountOfPreviousLoansBeforeLoan</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>PreviousRepaymentsBeforeLoan</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>PreviousEarlyRepaymentsBefoleLoan</code></td>
+<td>numerical</td>
+<td></td>
+</tr>
+<tr>
+<td><code>PreviousEarlyRepaymentsCountBeforeLoan</code></td>
+<td>numerical</td>
+<td>integer</td>
+</tr>
+<tr>
+<td><code>Council_house</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Homeless</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Joint_ownership</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Joint_tenant</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Living_with_parents</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Mortgage</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Other</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Owner</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Owner_with_encumbrance</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Tenant</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Entrepreneur</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Fully</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Partially</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Retiree</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+<tr>
+<td><code>Self_employed</code></td>
+<td>boolean</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>We will start by testing the model with an input we are quite sure (from the original data) that will be predicted as <code>false</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">x</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="p">[</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>        <span class="kc">False</span><span class="p">,</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>        <span class="mf">2125.0</span><span class="p">,</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>        <span class="mf">20.97</span><span class="p">,</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>        <span class="mi">60</span><span class="p">,</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>        <span class="mf">4.0</span><span class="p">,</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>        <span class="mf">0.0</span><span class="p">,</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>        <span class="mf">6.0</span><span class="p">,</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>        <span class="mf">0.0</span><span class="p">,</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>        <span class="mf">301.0</span><span class="p">,</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>        <span class="mf">0.0</span><span class="p">,</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>        <span class="mf">53.0</span><span class="p">,</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>        <span class="mf">0.0</span><span class="p">,</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>        <span class="mf">0.0</span><span class="p">,</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>        <span class="mf">0.0</span><span class="p">,</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>        <span class="mi">8</span><span class="p">,</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>        <span class="mi">6</span><span class="p">,</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>        <span class="mf">26.29</span><span class="p">,</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>        <span class="mf">10.92</span><span class="p">,</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>        <span class="mf">1000.0</span><span class="p">,</span>
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>        <span class="mf">1.0</span><span class="p">,</span>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>        <span class="mf">500.0</span><span class="p">,</span>
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>        <span class="mf">590.95</span><span class="p">,</span>
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a>        <span class="mf">0.0</span><span class="p">,</span>
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a>        <span class="mf">0.0</span><span class="p">,</span>
+<a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-32" name="__codelineno-16-32" href="#__codelineno-16-32"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-33" name="__codelineno-16-33" href="#__codelineno-16-33"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-34" name="__codelineno-16-34" href="#__codelineno-16-34"></a>        <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-16-35" name="__codelineno-16-35" href="#__codelineno-16-35"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-36" name="__codelineno-16-36" href="#__codelineno-16-36"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-37" name="__codelineno-16-37" href="#__codelineno-16-37"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-38" name="__codelineno-16-38" href="#__codelineno-16-38"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-39" name="__codelineno-16-39" href="#__codelineno-16-39"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-40" name="__codelineno-16-40" href="#__codelineno-16-40"></a>        <span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-16-41" name="__codelineno-16-41" href="#__codelineno-16-41"></a>        <span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-16-42" name="__codelineno-16-42" href="#__codelineno-16-42"></a>    <span class="p">]</span>
+<a id="__codelineno-16-43" name="__codelineno-16-43" href="#__codelineno-16-43"></a><span class="p">]</span>
+</code></pre></div>
+<p>We can see that this application will be rejected with a probability of <span class="arithmatex">\(\sim77\%\)</span>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">xg_model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Paid loan is predicted as: </span><span class="si">{</span><span class="n">xg_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[[0.7770493  0.22295067]]
+Paid loan is predicted as: [False]
+</code></pre></div>
+<p>We will now prepare the XGBoost model to be used from the TrustyAI counterfactual engine.</p>
+<p>To do so, we simply need to first create a prediction function which takes:</p>
+<ul>
+<li>A list of <code>PredictionInput</code> as inputs</li>
+<li>A list of <code>PredictionOutput</code> as outputs</li>
+</ul>
+<p>If these two conditions are met, the actual inner working of this method can be anything (including calling a XGBoost Python model for prediction as in our case):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">from</span> <span class="nn">org.kie.kogito.explainability.model</span> <span class="kn">import</span> <span class="n">PredictionInput</span><span class="p">,</span> <span class="n">PredictionOutput</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">_feature</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_obj</span><span class="p">()</span> <span class="k">for</span> <span class="n">_feature</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">features</span><span class="p">]</span>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">xg_model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">values</span><span class="p">]))</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="n">false_prob</span><span class="p">,</span> <span class="n">true_prob</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="k">if</span> <span class="n">false_prob</span> <span class="o">&gt;</span> <span class="n">true_prob</span><span class="p">:</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>        <span class="n">_prediction</span> <span class="o">=</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">false_prob</span><span class="p">)</span>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>        <span class="n">_prediction</span> <span class="o">=</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">true_prob</span><span class="p">)</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>    <span class="n">_output</span> <span class="o">=</span> <span class="n">output</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;PaidLoan&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">_prediction</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">score</span><span class="o">=</span><span class="n">_prediction</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">PredictionOutput</span><span class="p">([</span><span class="n">_output</span><span class="p">])]</span>
+</code></pre></div>
+<p>Once the prediction method is created, we wrap in a <code>PredictionProvider</code> class.</p>
+<p>This class takes care of all the JVM's asynchronous plumbing for us.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kn">from</span> <span class="nn">trustyai.model</span> <span class="kn">import</span> <span class="n">Model</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">predict</span><span class="p">)</span>
+</code></pre></div>
+<p>We will now express the previous inputs (<code>x</code>) in terms of <code>Feature</code>s, so that we might use it for the counterfactual search:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">def</span> <span class="nf">make_feature</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>        <span class="k">return</span> <span class="n">feature</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>        <span class="k">return</span> <span class="n">feature</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="n">features</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>    <span class="n">make_feature</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>        <span class="p">(</span><span class="s2">&quot;NewCreditCustomer&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>        <span class="p">(</span><span class="s2">&quot;Amount&quot;</span><span class="p">,</span> <span class="mf">2125.0</span><span class="p">),</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>        <span class="p">(</span><span class="s2">&quot;Interest&quot;</span><span class="p">,</span> <span class="mf">20.97</span><span class="p">),</span>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>        <span class="p">(</span><span class="s2">&quot;LoanDuration&quot;</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">),</span>
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>        <span class="p">(</span><span class="s2">&quot;Education&quot;</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>        <span class="p">(</span><span class="s2">&quot;NrOfDependants&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>        <span class="p">(</span><span class="s2">&quot;EmploymentDurationCurrentEmployer&quot;</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span>
+<a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>        <span class="p">(</span><span class="s2">&quot;IncomeFromPrincipalEmployer&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a>        <span class="p">(</span><span class="s2">&quot;IncomeFromPension&quot;</span><span class="p">,</span> <span class="mf">301.0</span><span class="p">),</span>
+<a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a>        <span class="p">(</span><span class="s2">&quot;IncomeFromFamilyAllowance&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a>        <span class="p">(</span><span class="s2">&quot;IncomeFromSocialWelfare&quot;</span><span class="p">,</span> <span class="mf">53.0</span><span class="p">),</span>
+<a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a>        <span class="p">(</span><span class="s2">&quot;IncomeFromLeavePay&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a>        <span class="p">(</span><span class="s2">&quot;IncomeFromChildSupport&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<a id="__codelineno-20-24" name="__codelineno-20-24" href="#__codelineno-20-24"></a>        <span class="p">(</span><span class="s2">&quot;IncomeOther&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<a id="__codelineno-20-25" name="__codelineno-20-25" href="#__codelineno-20-25"></a>        <span class="p">(</span><span class="s2">&quot;ExistingLiabilities&quot;</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span>
+<a id="__codelineno-20-26" name="__codelineno-20-26" href="#__codelineno-20-26"></a>        <span class="p">(</span><span class="s2">&quot;RefinanceLiabilities&quot;</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span>
+<a id="__codelineno-20-27" name="__codelineno-20-27" href="#__codelineno-20-27"></a>        <span class="p">(</span><span class="s2">&quot;DebtToIncome&quot;</span><span class="p">,</span> <span class="mf">26.29</span><span class="p">),</span>
+<a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a>        <span class="p">(</span><span class="s2">&quot;FreeCash&quot;</span><span class="p">,</span> <span class="mf">10.92</span><span class="p">),</span>
+<a id="__codelineno-20-29" name="__codelineno-20-29" href="#__codelineno-20-29"></a>        <span class="p">(</span><span class="s2">&quot;CreditScoreEeMini&quot;</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">),</span>
+<a id="__codelineno-20-30" name="__codelineno-20-30" href="#__codelineno-20-30"></a>        <span class="p">(</span><span class="s2">&quot;NoOfPreviousLoansBeforeLoan&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+<a id="__codelineno-20-31" name="__codelineno-20-31" href="#__codelineno-20-31"></a>        <span class="p">(</span><span class="s2">&quot;AmountOfPreviousLoansBeforeLoan&quot;</span><span class="p">,</span> <span class="mf">500.0</span><span class="p">),</span>
+<a id="__codelineno-20-32" name="__codelineno-20-32" href="#__codelineno-20-32"></a>        <span class="p">(</span><span class="s2">&quot;PreviousRepaymentsBeforeLoan&quot;</span><span class="p">,</span> <span class="mf">590.95</span><span class="p">),</span>
+<a id="__codelineno-20-33" name="__codelineno-20-33" href="#__codelineno-20-33"></a>        <span class="p">(</span><span class="s2">&quot;PreviousEarlyRepaymentsBefoleLoan&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<a id="__codelineno-20-34" name="__codelineno-20-34" href="#__codelineno-20-34"></a>        <span class="p">(</span><span class="s2">&quot;PreviousEarlyRepaymentsCountBeforeLoan&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<a id="__codelineno-20-35" name="__codelineno-20-35" href="#__codelineno-20-35"></a>        <span class="p">(</span><span class="s2">&quot;Council_house&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-36" name="__codelineno-20-36" href="#__codelineno-20-36"></a>        <span class="p">(</span><span class="s2">&quot;Homeless&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-37" name="__codelineno-20-37" href="#__codelineno-20-37"></a>        <span class="p">(</span><span class="s2">&quot;Joint_ownership&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-38" name="__codelineno-20-38" href="#__codelineno-20-38"></a>        <span class="p">(</span><span class="s2">&quot;Joint_tenant&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-39" name="__codelineno-20-39" href="#__codelineno-20-39"></a>        <span class="p">(</span><span class="s2">&quot;Living_with_parents&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-40" name="__codelineno-20-40" href="#__codelineno-20-40"></a>        <span class="p">(</span><span class="s2">&quot;Mortgage&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-41" name="__codelineno-20-41" href="#__codelineno-20-41"></a>        <span class="p">(</span><span class="s2">&quot;Other&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-42" name="__codelineno-20-42" href="#__codelineno-20-42"></a>        <span class="p">(</span><span class="s2">&quot;Owner&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-43" name="__codelineno-20-43" href="#__codelineno-20-43"></a>        <span class="p">(</span><span class="s2">&quot;Owner_with_encumbrance&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+<a id="__codelineno-20-44" name="__codelineno-20-44" href="#__codelineno-20-44"></a>        <span class="p">(</span><span class="s2">&quot;Tenant&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+<a id="__codelineno-20-45" name="__codelineno-20-45" href="#__codelineno-20-45"></a>        <span class="p">(</span><span class="s2">&quot;Entrepreneur&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-46" name="__codelineno-20-46" href="#__codelineno-20-46"></a>        <span class="p">(</span><span class="s2">&quot;Fully&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-47" name="__codelineno-20-47" href="#__codelineno-20-47"></a>        <span class="p">(</span><span class="s2">&quot;Partially&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-48" name="__codelineno-20-48" href="#__codelineno-20-48"></a>        <span class="p">(</span><span class="s2">&quot;Retiree&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+<a id="__codelineno-20-49" name="__codelineno-20-49" href="#__codelineno-20-49"></a>        <span class="p">(</span><span class="s2">&quot;Self_employed&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+<a id="__codelineno-20-50" name="__codelineno-20-50" href="#__codelineno-20-50"></a>    <span class="p">]</span>
+<a id="__codelineno-20-51" name="__codelineno-20-51" href="#__codelineno-20-51"></a><span class="p">]</span>
+</code></pre></div>
+<p>We can confirm now, with the newly created <code>PredictionProvider</code> model that this input will lead to a <code>false</code> <code>PaidLoan</code> prediction:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="n">model</span><span class="o">.</span><span class="n">predictAsync</span><span class="p">([</span><span class="n">PredictionInput</span><span class="p">(</span><span class="n">features</span><span class="p">)])</span><span class="o">.</span><span class="n">get</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;Output{value=false, type=boolean, score=0.7835956811904907, name=&#39;PaidLoan&#39;}&#39;
+</code></pre></div>
+<h3 id="unconstraind-basic-search">Unconstraind basic search</h3>
+<p>To get started we will search for a counterfactual with no constraints at all. This is not a realistic use case, but we will use it as a baseline.</p>
+<p>We will also create a set of equal bounds for all the features. Again, this is not realistic, but we do it to establish a baseline. Note that boolean features will ignore the bounds anyway, so we can just create a set such as:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">n_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="n">domains</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">)]</span> <span class="o">*</span> <span class="n">n_features</span>
+</code></pre></div>
+<p>We want our <strong>goal</strong> to be the model predicting the loan will be paid (<code>PaidLoad=true</code>), so we specify it as:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">goal</span> <span class="o">=</span> <span class="p">[</span><span class="n">output</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;PaidLoan&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+</code></pre></div>
+<p>We now wrap all this context in a <code>CounterfactualPrediction</code> object</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">prediction</span> <span class="o">=</span> <span class="n">counterfactual_prediction</span><span class="p">(</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    <span class="n">input_features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> 
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>    <span class="n">outputs</span><span class="o">=</span><span class="n">goal</span><span class="p">,</span> 
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>    <span class="n">domains</span><span class="o">=</span><span class="n">domains</span><span class="p">)</span>
+</code></pre></div>
+<p>We are now ready to search for a counterfactual:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">explanation</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</code></pre></div>
+<p>First we will confirm that our counterfactual changes the outcome, by predicting its outcome using the model:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">testf</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">asFeature</span><span class="p">()</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">explanation</span><span class="o">.</span><span class="n">getEntities</span><span class="p">()]</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="n">model</span><span class="o">.</span><span class="n">predictAsync</span><span class="p">([</span><span class="n">PredictionInput</span><span class="p">(</span><span class="n">testf</span><span class="p">)])</span><span class="o">.</span><span class="n">get</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getOutputs</span><span class="p">()[</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>    <span class="mi">0</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="p">]</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;Output{value=true, type=boolean, score=0.5882376432418823, name=&#39;PaidLoan&#39;}&#39;
+</code></pre></div>
+<p>And indeed it changes. We will now verify <em>which</em> features were changed:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">def</span> <span class="nf">show_changes</span><span class="p">(</span><span class="n">explanation</span><span class="p">,</span> <span class="n">original</span><span class="p">):</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    <span class="n">entities</span> <span class="o">=</span> <span class="n">explanation</span><span class="o">.</span><span class="n">entities</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>        <span class="n">name</span> <span class="o">=</span> <span class="n">original</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>        <span class="n">original_value</span> <span class="o">=</span> <span class="n">original</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_number</span><span class="p">()</span>
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>        <span class="n">new_value</span> <span class="o">=</span> <span class="n">entities</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">as_feature</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_number</span><span class="p">()</span>
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>        <span class="k">if</span> <span class="n">original_value</span> <span class="o">!=</span> <span class="n">new_value</span><span class="p">:</span>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Feature &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">original_value</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">new_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a>
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="n">show_changes</span><span class="p">(</span><span class="n">explanation</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Feature &#39;RefinanceLiabilities&#39;: 6.0 -&gt; 1.230474777192958
+Feature &#39;PreviousEarlyRepaymentsCountBeforeLoan&#39;: 0.0 -&gt; 6.0
+</code></pre></div>
+<p>Here we can see the problem with the unconstrained search.</p>
+<p>Some of the fields that were changed (<em>e.g.</em> <code>IncomeFromSocialWelfare</code>, <code>RefinanceLiabilities</code>, etc) might be difficult to change in practice.</p>
+<h3 id="constrained-search">Constrained search</h3>
+<p>We will now try a more realistic search, which incorporates domain specific knowledge (and common sence).</p>
+<p>To do so, we will constrain features we feel they shouldn't (or mustn't) change and specify sensible search bounds.
+We will start with the constraints:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># NewCreditCustomer</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Amount</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Interest</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># LoanDuration</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Education</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># NrOfDependants</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># EmploymentDurationCurrentEmployer</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># IncomeFromPrincipalEmployer</span>
+<a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># IncomeFromPension</span>
+<a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># IncomeFromFamilyAllowance</span>
+<a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># IncomeFromSocialWelfare</span>
+<a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># IncomeFromLeavePay</span>
+<a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># IncomeFromChildSupport</span>
+<a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># IncomeOther</span>
+<a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># ExistingLiabilities</span>
+<a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># RefinanceLiabilities</span>
+<a id="__codelineno-28-18" name="__codelineno-28-18" href="#__codelineno-28-18"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># DebtToIncome</span>
+<a id="__codelineno-28-19" name="__codelineno-28-19" href="#__codelineno-28-19"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># FreeCash</span>
+<a id="__codelineno-28-20" name="__codelineno-28-20" href="#__codelineno-28-20"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># CreditScoreEeMini</span>
+<a id="__codelineno-28-21" name="__codelineno-28-21" href="#__codelineno-28-21"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># NoOfPreviousLoansBeforeLoan</span>
+<a id="__codelineno-28-22" name="__codelineno-28-22" href="#__codelineno-28-22"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># AmountOfPreviousLoansBeforeLoan</span>
+<a id="__codelineno-28-23" name="__codelineno-28-23" href="#__codelineno-28-23"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># PreviousRepaymentsBeforeLoan</span>
+<a id="__codelineno-28-24" name="__codelineno-28-24" href="#__codelineno-28-24"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># PreviousEarlyRepaymentsBefoleLoan</span>
+<a id="__codelineno-28-25" name="__codelineno-28-25" href="#__codelineno-28-25"></a>    <span class="kc">True</span><span class="p">,</span>  <span class="c1"># PreviousEarlyRepaymentsCountBeforeLoan</span>
+<a id="__codelineno-28-26" name="__codelineno-28-26" href="#__codelineno-28-26"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Council_house</span>
+<a id="__codelineno-28-27" name="__codelineno-28-27" href="#__codelineno-28-27"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Homeless</span>
+<a id="__codelineno-28-28" name="__codelineno-28-28" href="#__codelineno-28-28"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Joint_ownership</span>
+<a id="__codelineno-28-29" name="__codelineno-28-29" href="#__codelineno-28-29"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Joint_tenant</span>
+<a id="__codelineno-28-30" name="__codelineno-28-30" href="#__codelineno-28-30"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Living_with_parents</span>
+<a id="__codelineno-28-31" name="__codelineno-28-31" href="#__codelineno-28-31"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Mortgage</span>
+<a id="__codelineno-28-32" name="__codelineno-28-32" href="#__codelineno-28-32"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Other</span>
+<a id="__codelineno-28-33" name="__codelineno-28-33" href="#__codelineno-28-33"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Owner</span>
+<a id="__codelineno-28-34" name="__codelineno-28-34" href="#__codelineno-28-34"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Owner_with_encumbrance&quot;</span>
+<a id="__codelineno-28-35" name="__codelineno-28-35" href="#__codelineno-28-35"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Tenant</span>
+<a id="__codelineno-28-36" name="__codelineno-28-36" href="#__codelineno-28-36"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Entrepreneur</span>
+<a id="__codelineno-28-37" name="__codelineno-28-37" href="#__codelineno-28-37"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Fully</span>
+<a id="__codelineno-28-38" name="__codelineno-28-38" href="#__codelineno-28-38"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Partially</span>
+<a id="__codelineno-28-39" name="__codelineno-28-39" href="#__codelineno-28-39"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Retiree</span>
+<a id="__codelineno-28-40" name="__codelineno-28-40" href="#__codelineno-28-40"></a>    <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Self_employed</span>
+<a id="__codelineno-28-41" name="__codelineno-28-41" href="#__codelineno-28-41"></a><span class="p">]</span>
+</code></pre></div>
+<p>The constraints should be self-explanatory, but in essence they were divided into three groups</p>
+<ul>
+<li>Attributes you <strong>cannot</strong> or <strong>should</strong> not change (protected), for instance age, education level, etc</li>
+<li>Attributes you <strong>can</strong> change, for loan duration, loan amount, etc</li>
+<li>Attributes you probably won't be able to change, but might be informative to change. For instance, you might not be able to easily change your income, but you might be interested in how much would it need to be in order to get the prediction as favourable.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="n">features_boundaries</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># NewCreditCustomer</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">),</span>  <span class="c1"># Amount</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Interest</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">120.0</span><span class="p">),</span>  <span class="c1"># LoanDuration</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Education</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># NrOfDependants</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">),</span>  <span class="c1"># EmploymentDurationCurrentEmployer</span>
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">),</span>  <span class="c1"># IncomeFromPrincipalEmployer</span>
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">),</span>  <span class="c1"># IncomeFromPension</span>
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">),</span>  <span class="c1"># IncomeFromFamilyAllowance</span>
+<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">),</span>  <span class="c1"># IncomeFromSocialWelfare</span>
+<a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">),</span>  <span class="c1"># IncomeFromLeavePay</span>
+<a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">),</span>  <span class="c1"># IncomeFromChildSupport</span>
+<a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">),</span>  <span class="c1"># IncomeOthe</span>
+<a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># ExistingLiabilities</span>
+<a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># RefinanceLiabilities</span>
+<a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span>  <span class="c1"># DebtToIncome</span>
+<a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span>  <span class="c1"># FreeCash</span>
+<a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a>    <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">),</span>  <span class="c1"># CreditScoreEeMini</span>
+<a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># NoOfPreviousLoansBeforeLoan</span>
+<a id="__codelineno-29-22" name="__codelineno-29-22" href="#__codelineno-29-22"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># AmountOfPreviousLoansBeforeLoan</span>
+<a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># PreviousRepaymentsBeforeLoan</span>
+<a id="__codelineno-29-24" name="__codelineno-29-24" href="#__codelineno-29-24"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># PreviousEarlyRepaymentsBefoleLoan</span>
+<a id="__codelineno-29-25" name="__codelineno-29-25" href="#__codelineno-29-25"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># PreviousEarlyRepaymentsCountBeforeLoan</span>
+<a id="__codelineno-29-26" name="__codelineno-29-26" href="#__codelineno-29-26"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Council_house</span>
+<a id="__codelineno-29-27" name="__codelineno-29-27" href="#__codelineno-29-27"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Homeless</span>
+<a id="__codelineno-29-28" name="__codelineno-29-28" href="#__codelineno-29-28"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Joint_ownership</span>
+<a id="__codelineno-29-29" name="__codelineno-29-29" href="#__codelineno-29-29"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Joint_tenant</span>
+<a id="__codelineno-29-30" name="__codelineno-29-30" href="#__codelineno-29-30"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Living_with_parents</span>
+<a id="__codelineno-29-31" name="__codelineno-29-31" href="#__codelineno-29-31"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Mortgage</span>
+<a id="__codelineno-29-32" name="__codelineno-29-32" href="#__codelineno-29-32"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Other</span>
+<a id="__codelineno-29-33" name="__codelineno-29-33" href="#__codelineno-29-33"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Owner</span>
+<a id="__codelineno-29-34" name="__codelineno-29-34" href="#__codelineno-29-34"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Owner_with_encumbrance</span>
+<a id="__codelineno-29-35" name="__codelineno-29-35" href="#__codelineno-29-35"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Tenant</span>
+<a id="__codelineno-29-36" name="__codelineno-29-36" href="#__codelineno-29-36"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Entrepreneur</span>
+<a id="__codelineno-29-37" name="__codelineno-29-37" href="#__codelineno-29-37"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Fully</span>
+<a id="__codelineno-29-38" name="__codelineno-29-38" href="#__codelineno-29-38"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Partially</span>
+<a id="__codelineno-29-39" name="__codelineno-29-39" href="#__codelineno-29-39"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Retiree</span>
+<a id="__codelineno-29-40" name="__codelineno-29-40" href="#__codelineno-29-40"></a>    <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Self_employed</span>
+<a id="__codelineno-29-41" name="__codelineno-29-41" href="#__codelineno-29-41"></a><span class="p">]</span>
+</code></pre></div>
+<p>As before, we wrap this data in a <code>CounterfactualPrediction</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="n">prediction</span> <span class="o">=</span> <span class="n">counterfactual_prediction</span><span class="p">(</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    <span class="n">input_features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    <span class="n">outputs</span><span class="o">=</span><span class="n">goal</span><span class="p">,</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>    <span class="n">domains</span><span class="o">=</span><span class="n">features_boundaries</span><span class="p">,</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>    <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="p">)</span>
+</code></pre></div>
+<p>And we start a new search:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">explanation</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</code></pre></div>
+<p>We test that the counterfactual does change the outcome:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">testf</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">as_feature</span><span class="p">()</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">explanation</span><span class="o">.</span><span class="n">entities</span><span class="p">]</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="n">model</span><span class="o">.</span><span class="n">predictAsync</span><span class="p">([</span><span class="n">PredictionInput</span><span class="p">(</span><span class="n">testf</span><span class="p">)])</span><span class="o">.</span><span class="n">get</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;Output{value=true, type=boolean, score=0.5038489103317261, name=&#39;PaidLoan&#39;}&#39;
+</code></pre></div>
+<p>And we confirm that no constrained features were changed:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="n">show_changes</span><span class="p">(</span><span class="n">explanation</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Feature &#39;LoanDuration&#39;: 60.0 -&gt; 56.432745812537775
+Feature &#39;IncomeFromSocialWelfare&#39;: 53.0 -&gt; 60.0
+</code></pre></div>
+<h3 id="minimum-counterfactual-probabilities">Minimum counterfactual probabilities</h3>
+<p>We can see that the previous answer is very close to <span class="arithmatex">\(50\%\)</span>.</p>
+<p>With TrustyAI we have the possiblity to specify a minimum probability for the result (when the model supports prediction confidences).</p>
+<p>Let's say we want a result that is at least <span class="arithmatex">\(75\%\)</span> confident that the loan will be repaid. We can just encode the <strong>minimum probability</strong> as the last argument of each <code>Output</code>. A minimum probability of <span class="arithmatex">\(0\)</span> (as we've used) simply means that any desired outcome will be accepted, regardless of its probability. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">goal</span> <span class="o">=</span> <span class="p">[</span><span class="n">output</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;PaidLoan&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;bool&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)]</span>
+</code></pre></div>
+<p>We can then re-run the search with all the data as defined previously:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="n">prediction</span> <span class="o">=</span> <span class="n">counterfactual_prediction</span><span class="p">(</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>    <span class="n">input_features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>    <span class="n">outputs</span><span class="o">=</span><span class="n">goal</span><span class="p">,</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>    <span class="n">domains</span><span class="o">=</span><span class="n">features_boundaries</span><span class="p">,</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>    <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span>
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="n">explanation</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</code></pre></div>
+<p>As previously, we check that the answer is what we are looking for</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">testf</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">as_feature</span><span class="p">()</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">explanation</span><span class="o">.</span><span class="n">entities</span><span class="p">]</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="n">model</span><span class="o">.</span><span class="n">predictAsync</span><span class="p">([</span><span class="n">PredictionInput</span><span class="p">(</span><span class="n">testf</span><span class="p">)])</span><span class="o">.</span><span class="n">get</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;Output{value=true, type=boolean, score=0.7572674751281738, name=&#39;PaidLoan&#39;}&#39;
+</code></pre></div>
+<p>And we show which features need to be changed for said desired outcome:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="n">show_changes</span><span class="p">(</span><span class="n">explanation</span><span class="p">,</span> <span class="n">features</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Feature &#39;LoanDuration&#39;: 60.0 -&gt; 14.798944010723588
+</code></pre></div>
+<h2 id="visualisation">Visualisation</h2>
+<p>Let's try to visualise counterfactuals in action with the following example:</p>
+<p>We construct three clusters of data and train a model to assign points to a cluster.
+Our counterfactual question can then be</p>
+<blockquote>
+<p>If we have a point <span class="arithmatex">\(X\)</span> belonging to a certain cluster <span class="arithmatex">\(C\)</span>, how far would it need to move
+in order to belong to a desired cluster <span class="arithmatex">\(C^'\)</span></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="p">[(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../Counterfactuals_files/Counterfactuals_84_0.png" /></p>
+<p>We now train a KNN model in order to classify points and assign them to a cluster.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="n">knn</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="n">knn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>KNeighborsClassifier(n_neighbors=3)
+</code></pre></div>
+<p>If we take a point such as <code>(2.5, -1)</code> it is clear this point will belong to cluster <code>2</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="n">ORIGINAL</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">]</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ORIGINAL</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ORIGINAL</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">ORIGINAL</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">ORIGINAL</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+<a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">ORIGINAL</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">ORIGINAL</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">5</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../Counterfactuals_files/Counterfactuals_88_0.png" /></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>
+<a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">]]))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>array([[0., 0., 1.]])
+</code></pre></div>
+<p>We can now create our prediction function. I will simply take the <code>x</code> and <code>y</code> and return the cluster classification,
+along with a probability.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="k">def</span> <span class="nf">knn_classify</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">_feature</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_number</span><span class="p">()</span> <span class="k">for</span> <span class="n">_feature</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">features</span><span class="p">]</span>
+<a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">knn</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">values</span><span class="p">]))</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>    <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>    <span class="n">_output</span> <span class="o">=</span> <span class="n">output</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">index</span><span class="p">])</span>
+<a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">PredictionOutput</span><span class="p">([</span><span class="n">_output</span><span class="p">])]</span>
+</code></pre></div>
+<p>We wrap this function in the <code>Model</code> wrapper.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="kn">from</span> <span class="nn">trustyai.model</span> <span class="kn">import</span> <span class="n">Model</span>
+<a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>
+<a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a><span class="n">knn_model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">knn_classify</span><span class="p">)</span>
+</code></pre></div>
+<p>We can test it and confirm it works as expected.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="n">feature</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="n">feature</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">)]</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="n">knn_model</span><span class="o">.</span><span class="n">predictAsync</span><span class="p">([</span><span class="n">PredictionInput</span><span class="p">(</span><span class="n">features</span><span class="p">)])</span><span class="o">.</span><span class="n">get</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;Output{value=2, type=number, score=1.0, name=&#39;cluster&#39;}&#39;
+</code></pre></div>
+<p>We now define our goal. We want it to belong to cluster <code>1</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="n">goal</span> <span class="o">=</span> <span class="p">[</span><span class="n">output</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</code></pre></div>
+<p>We pass this data to the explainer along with the search boundaries.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="n">prediction</span> <span class="o">=</span> <span class="n">counterfactual_prediction</span><span class="p">(</span>
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>    <span class="n">input_features</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
+<a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>    <span class="n">outputs</span><span class="o">=</span><span class="n">goal</span><span class="p">,</span>
+<a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>    <span class="n">domains</span><span class="o">=</span><span class="p">[(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)]</span>
+<a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="p">)</span>
+<a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="n">explanation</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">knn_model</span><span class="p">)</span>
+</code></pre></div>
+<p>The counterfactual we get is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">as_feature</span><span class="p">()</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">as_number</span><span class="p">()</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">explanation</span><span class="o">.</span><span class="n">entities</span><span class="p">]</span>
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="n">result</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[2.501921601686025, 2.6401536249215436]
+</code></pre></div>
+<p>We can confirm this point belongs to cluster <code>1</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="n">testf</span> <span class="o">=</span> <span class="p">[</span><span class="n">feature</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">feature</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="n">knn_model</span><span class="o">.</span><span class="n">predictAsync</span><span class="p">([</span><span class="n">PredictionInput</span><span class="p">(</span><span class="n">testf</span><span class="p">)])</span><span class="o">.</span><span class="n">get</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&#39;Output{value=1, type=number, score=1.0, name=&#39;cluster&#39;}&#39;
+</code></pre></div>
+<p>And visually:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ORIGINAL</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ORIGINAL</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">)</span>
+<a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">5</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a>
+<a id="__codelineno-51-8" name="__codelineno-51-8" href="#__codelineno-51-8"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../Counterfactuals_files/Counterfactuals_105_0.png" /></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>
+</code></pre></div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.22074ed6.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.960e086b.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

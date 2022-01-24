@@ -1,4 +1,4 @@
-## Introduction
+# Introduction
 
 Python bindings to [TrustyAI](https://kogito.kie.org/trustyai/)'s explainability library.
 
