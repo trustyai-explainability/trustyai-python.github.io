@@ -1,23 +1,28 @@
 # Introduction
 
-Python bindings to [TrustyAI](https://kogito.kie.org/trustyai/)'s explainability library.
+`TrustyAI-Python` is a Python library that leverages the ML/AI explainability features available
+on [TrustyAI](https://kogito.kie.org/trustyai/), a part of the [Kogito](https://kogito.kie.org/) project.
 
 ## Setup
 
 ### PyPi
 
-Install from PyPi with
+The simplest way to get started with `TrustyAI-Python` is to install from PyPi with:
 
 ```shell
-pip install trustyai
+$ pip install trustyai
 ```
 
 ### Local
 
-The minimum dependencies can be installed with
+Alternatively, this library can installed locally by cloning the [main repo](https://github.com/trustyai-python/module) and installing
+the minimum build dependencies:
 
 ```shell
-pip install -r requirements.txt
+$ git clone git@github.com:trustyai-python/module.git trustyai-python-module
+$ cd trustyai-python-module
+$ pip install -r requirements.txt
+$ python setup.py build install # -- force if reinstalling
 ```
 
 If running the examples or developing, also install the development dependencies:
@@ -31,11 +36,11 @@ pip install -r requirements-dev.txt
 Alternatively create a container image and run it using
 
 ```shell
-$ docker build -f Dockerfile -t ruivieira/python-trustyai:latest .
-$ docker run --rm -it -p 8888:8888 ruivieira/python-trustyai:latest
+$ docker build -f Dockerfile -t $USER/python-trustyai:latest .
+$ docker run --rm -it -p 8888:8888 $USER/python-trustyai:latest
 ```
 
-The Jupyter server will be available at `localhost:8888`.
+A Jupyter notebook server will be available at `localhost:8888`.
 
 ### Binder
 
@@ -45,8 +50,9 @@ You can also run the example Jupyter notebooks using `mybinder.org`:
 
 ## Getting started
 
-To initialise, import the module and initialise it.
-For instance,
+The very first step is to import the module and initialise it.
+This is will start the JVM and add the relevant Java libraries to the module's
+class path. For instance,
 
 ```python
 import trustyai
@@ -72,19 +78,19 @@ This needs to be the very first call, before any other call to TrustyAI methods.
 To code a model in Python you need to write it a function with takes a Python list of `PredictionInput` and
 returns a (Python) list of `PredictionOutput`. 
 
-This function will then be passed as an argument to the Python `PredictionProvider`
+This function will then be passed as an argument to the Python `Model`
 which will take care of wrapping it in a Java `CompletableFuture` for you.
 For instance,
 
 ```python
-from trustyai.model import PredictionProvider
+from trustyai.model import Model
 
 def myModelFunction(inputs):
     # do something with the inputs
     output = [predictionOutput1, predictionOutput2]
     return output
 
-model = PredictionProvider(myModelFunction)
+model = Model(myModelFunction)
 
 inputs = [predictionInput1, predictionInput2]
 

@@ -258,8 +258,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#unconstraind-basic-search" class="md-nav__link">
-    Unconstraind basic search
+  <a href="#unconstrained-basic-search" class="md-nav__link">
+    Unconstrained basic search
   </a>
   
 </li>
@@ -353,8 +353,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#unconstraind-basic-search" class="md-nav__link">
-    Unconstraind basic search
+  <a href="#unconstrained-basic-search" class="md-nav__link">
+    Unconstrained basic search
   </a>
   
 </li>
@@ -918,7 +918,7 @@ Paid loan is predicted as: [False]
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>&#39;Output{value=false, type=boolean, score=0.7835956811904907, name=&#39;PaidLoan&#39;}&#39;
 </code></pre></div>
-<h3 id="unconstraind-basic-search">Unconstraind basic search</h3>
+<h3 id="unconstrained-basic-search">Unconstrained basic search</h3>
 <p>To get started we will search for a counterfactual with no constraints at all. This is not a realistic use case, but we will use it as a baseline.</p>
 <p>We will also create a set of equal bounds for all the features. Again, this is not realistic, but we do it to establish a baseline. Note that boolean features will ignore the bounds anyway, so we can just create a set such as:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">n_features</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
@@ -1114,7 +1114,7 @@ Feature &#39;IncomeFromSocialWelfare&#39;: 53.0 -&gt; 60.0
 Our counterfactual question can then be</p>
 <blockquote>
 <p>If we have a point <span class="arithmatex">\(X\)</span> belonging to a certain cluster <span class="arithmatex">\(C\)</span>, how far would it need to move
-in order to belong to a desired cluster <span class="arithmatex">\(C^'\)</span></p>
+in order to belong to a desired cluster <span class="arithmatex">\(C^{\prime}\)</span></p>
 </blockquote>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
 <a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>

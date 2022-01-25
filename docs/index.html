@@ -401,33 +401,39 @@
                 
 
 <h1 id="introduction">Introduction</h1>
-<p>Python bindings to <a href="https://kogito.kie.org/trustyai/">TrustyAI</a>'s explainability library.</p>
+<p><code>TrustyAI-Python</code> is a Python library that leverages the ML/AI explainability features available
+on <a href="https://kogito.kie.org/trustyai/">TrustyAI</a>, a part of the <a href="https://kogito.kie.org/">Kogito</a> project.</p>
 <h2 id="setup">Setup</h2>
 <h3 id="pypi">PyPi</h3>
-<p>Install from PyPi with</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip install trustyai
+<p>The simplest way to get started with <code>TrustyAI-Python</code> is to install from PyPi with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$ pip install trustyai
 </code></pre></div>
 <h3 id="local">Local</h3>
-<p>The minimum dependencies can be installed with</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip install -r requirements.txt
+<p>Alternatively, this library can installed locally by cloning the <a href="https://github.com/trustyai-python/module">main repo</a> and installing
+the minimum build dependencies:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$ git clone git@github.com:trustyai-python/module.git trustyai-python-module
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$ <span class="nb">cd</span> trustyai-python-module
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>$ pip install -r requirements.txt
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>$ python setup.py build install <span class="c1"># -- force if reinstalling</span>
 </code></pre></div>
 <p>If running the examples or developing, also install the development dependencies:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pip install -r requirements-dev.txt
 </code></pre></div>
 <h3 id="docker">Docker</h3>
 <p>Alternatively create a container image and run it using</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$ docker build -f Dockerfile -t ruivieira/python-trustyai:latest .
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$ docker run --rm -it -p <span class="m">8888</span>:8888 ruivieira/python-trustyai:latest
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$ docker build -f Dockerfile -t <span class="nv">$USER</span>/python-trustyai:latest .
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$ docker run --rm -it -p <span class="m">8888</span>:8888 <span class="nv">$USER</span>/python-trustyai:latest
 </code></pre></div>
-<p>The Jupyter server will be available at <code>localhost:8888</code>.</p>
+<p>A Jupyter notebook server will be available at <code>localhost:8888</code>.</p>
 <h3 id="binder">Binder</h3>
 <p>You can also run the example Jupyter notebooks using <code>mybinder.org</code>:</p>
 <ul>
 <li>https://mybinder.org/v2/gh/trustyai-python/examples/main</li>
 </ul>
 <h2 id="getting-started">Getting started</h2>
-<p>To initialise, import the module and initialise it.
-For instance,</p>
+<p>The very first step is to import the module and initialise it.
+This is will start the JVM and add the relevant Java libraries to the module's
+class path. For instance,</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span> <span class="nn">trustyai</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">trustyai</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
@@ -444,17 +450,17 @@ be stored locally under <code>./dep</code>.</p>
 <h2 id="writing-your-model-in-python">Writing your model in Python</h2>
 <p>To code a model in Python you need to write it a function with takes a Python list of <code>PredictionInput</code> and
 returns a (Python) list of <code>PredictionOutput</code>. </p>
-<p>This function will then be passed as an argument to the Python <code>PredictionProvider</code>
+<p>This function will then be passed as an argument to the Python <code>Model</code>
 which will take care of wrapping it in a Java <code>CompletableFuture</code> for you.
 For instance,</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">trustyai.model</span> <span class="kn">import</span> <span class="n">PredictionProvider</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span> <span class="nn">trustyai.model</span> <span class="kn">import</span> <span class="n">Model</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">def</span> <span class="nf">myModelFunction</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="c1"># do something with the inputs</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">predictionOutput1</span><span class="p">,</span> <span class="n">predictionOutput2</span><span class="p">]</span>
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="k">return</span> <span class="n">output</span>
 <a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">model</span> <span class="o">=</span> <span class="n">PredictionProvider</span><span class="p">(</span><span class="n">myModelFunction</span><span class="p">)</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">myModelFunction</span><span class="p">)</span>
 <a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
 <a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">predictionInput1</span><span class="p">,</span> <span class="n">predictionInput2</span><span class="p">]</span>
 <a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>

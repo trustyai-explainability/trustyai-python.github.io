@@ -471,7 +471,7 @@ model.predictAsync([PredictionInput(features)]).get()[0].outputs[0].toString()
 
 
 
-### Unconstraind basic search
+### Unconstrained basic search
 
 To get started we will search for a counterfactual with no constraints at all. This is not a realistic use case, but we will use it as a baseline.
 
@@ -762,7 +762,7 @@ We construct three clusters of data and train a model to assign points to a clus
 Our counterfactual question can then be
 
 > If we have a point $X$ belonging to a certain cluster $C$, how far would it need to move
-> in order to belong to a desired cluster $C^'$
+> in order to belong to a desired cluster $C^{\prime}$
 
 
 ```python
